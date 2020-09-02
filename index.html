@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <!-- prettier-ignore -->
+  <head>
+    <meta charset="utf-8">
+    <title>Chat Party Game</title>
+    <meta name="description" content="Chat Party Game">
+    <meta name="author" content="EdgarMelons">
+    <link href="index.css" rel="stylesheet">
+    <script src="./index.js" type="module"></script>
+    <script src="./TwitchApi.js" type="module"></script>
+    <script src="./Game.js" type="module"></script>
+    <script src="./purify.min.js"></script>
+    <script src="./twitch.js"></script>
+    
+    <link rel="icon" type="image/png" href="images/favicon32x32.png" sizes="32x32" />
+
+    <img id="redAnimationStrip" src="images/redAnimationStrip.png" style="display:none"/>
+    <img id="blueAnimationStrip" src="images/blueAnimationStrip.png" style="display:none"/>
+    <img id="greenAnimationStrip" src="images/greenAnimationStrip.png" style="display:none"/>
+    <img id="yellowAnimationStrip" src="images/yellowAnimationStrip.png" style="display:none"/>
+    <img id="orangeAnimationStrip" src="images/orangeAnimationStrip.png" style="display:none"/>
+    <img id="tealAnimationStrip" src="images/tealAnimationStrip.png" style="display:none"/>
+    <img id="purpleAnimationStrip" src="images/purpleAnimationStrip.png" style="display:none"/>
+    <img id="pinkAnimationStrip" src="images/pinkAnimationStrip.png" style="display:none"/>
+    <img id="glassTileSheet" src="images/glassTileSheet.png" style="display:none"/>
+    <img id="lavaBackground" src="images/lavaBackground.png" style="display:none"/>
+    <img id="joiningBackground" src="images/joinscreen.png" style="display:none"/>
+    <img id="winScreenBackGround" src="images/winscreenBackground.png" style="display:none"/>
+    <img id="joinStrip" src="images/joinStrip.png" style="display:none"/>
+
+    <audio id="victorySound" src="./sounds/victory.wav"></audio>
+    <audio id="jumpSound" src="./sounds/jump.wav"></audio>
+    <audio id="redJumpSound" src="./sounds/redjump.wav"></audio>
+    <audio id="blueJumpSound" src="./sounds/bluejump.wav"></audio>
+    <audio id="greenJumpSound" src="./sounds/greenjump.wav"></audio>
+    <audio id="yellowJumpSound" src="./sounds/yellowjump.wav"></audio>
+    <audio id="deathSound" src="./sounds/death.wav"></audio>
+    <audio id="pushSound" src="./sounds/push.wav"></audio>
+    <audio id="blipSound" src="./sounds/blip.wav"></audio>
+    <audio id="bloopSound" src="./sounds/bloop.wav"></audio>
+
+    
+</head>
+  <!-- prettier-ignore -->
+  <body>
+    <div id="container">
+        <div id="canvasplate">
+            <canvas id="gameScreen" width="1200" height="700">
+            Your browser does not support the HTML5 canvas tag.
+        </canvas>
+    </div>
+        <label id="status" style="position:absolute;left:350px;top:800px;width:455px;height:62px;line-height:62px;z-index:47;">???</label>
+    </div>
+
+    <div id="fontload">.</div>
+    <div id="fontload2">.</div>
+
+    <div id="PageHeader1" style="position:absolute;text-align:left;left:0px;top:0px;width:100%;height:92px;z-index:7777;">
+        <div id="wb_title" style="position:absolute;left:360px;top:17px;width:486px;height:59px;text-align:center;z-index:1;">
+            <span style="color:#FBFBFB;font-family:'MS Sans Serif';font-size:48px;"><strong>Chat Single Game v1</strong></span></div>
+        <div id="wb_Text1" style="position:absolute;left:830px;top:62px;width:42px;height:30px;text-align:center;z-index:3;"></div>
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,113 @@
+@font-face {
+  font-family: 'luckiest_guyregular';
+  src: url('./images/luckiestguy-regular-webfont.woff') format('woff'),
+    url('./images/luckiestguy-regular-webfont.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'galindoregular';
+  src: url('./images/galindo-regular-webfont.woff2') format('woff2'),
+    url('./images/galindo-regular-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+div#container {
+  width: 1300px;
+  position: relative;
+  margin: 0 auto 0 auto;
+  text-align: left;
+  background-color: #1f1f23;
+}
+div#canvasplate {
+  width: 1300px;
+  position: relative;
+  top: 100px;
+  left: 0px;
+  height: 710px;
+  background-color: dimgray;
+}
+body {
+  color: #000000;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 1.1875;
+  margin: 0;
+  text-align: center;
+  background-color: #1f1f23;
+}
+
+#gameScreen {
+  background: url('./images/backgroundImage.png');
+  border: 5px solid purple;
+  position: relative;
+  left: 45px;
+  z-index: 45;
+}
+#PageHeader1 {
+  background-color: #571182;
+  background-image: none;
+  box-sizing: border-box;
+}
+
+div#fontload {
+  font-family: 'luckiest_guyregular';
+}
+
+div#fontload2 {
+  font-family: 'galindoregular';
+}
+#wb_title {
+  background-color: transparent;
+  background-image: none;
+  border: 0px solid #fbfbfb;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}
+#wb_title div {
+  text-align: center;
+}
+
+#connect_btn {
+  border: 1px solid #a52a2a;
+  border-radius: 8px;
+  background-color: #32cd32;
+  background-image: none;
+  color: #ffffff;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 17px;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#disconnect_btn {
+  border: 1px solid #a52a2a;
+  border-radius: 8px;
+  background-color: #a52a2a;
+  background-image: none;
+  color: #ffffff;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 17px;
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#status {
+  border: 0px solid #cccccc;
+  background-color: transparent;
+  background-image: none;
+  color: #4682b4;
+  font-family: Arial;
+  font-weight: normal;
+  font-size: 32px;
+  padding: 4px 4px 4px 4px;
+  margin: 0;
+  text-align: center;
+  vertical-align: top;
+}
