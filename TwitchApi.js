@@ -1,4 +1,5 @@
 import { GAMESTATE, COLOUR, DIRECTIONS } from './SharedConstants.js';
+import { playSound } from './PlaySound.js';
 var lowestTeam = 'red';
 export default class TwitchApi {
   constructor(channel, game) {
@@ -118,10 +119,15 @@ export default class TwitchApi {
   addUserToColour(cleanUserName) {
     if (this.game.playerTeams.length > 0) {
       if (!this.checkIfJoined(cleanUserName)) {
+        if (cleanUserName === 'chaosshield') {
+          var sound = document.getElementById('chaosLaugh');
+          playSound(sound);
+        }
         //find empty team
         var emptyTeam = this.game.playerTeams.find((x) => x.user === null);
         // add player to Team
         emptyTeam.user = cleanUserName;
+
         //add player to all players
         this.game.allPlayers.push({
           userName: cleanUserName,
@@ -131,8 +137,10 @@ export default class TwitchApi {
           cleanUserName,
           emptyTeam.teamColour
         );
+
         // add team to active teams
         this.game.activePlayers.push(emptyTeam);
+
         // remove team from available
         this.game.playerTeams = this.game.playerTeams.filter(
           (object) => object.user === null

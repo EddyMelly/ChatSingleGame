@@ -119,6 +119,15 @@ export default class Player {
     );
   }
 
+  changeStripToBeatrice() {
+    this.animationStrip = document.getElementById('beatriceAnimationStrip');
+    this.sprite_sheet = {
+      frame_sets: [[0, 1], [2, 3, 4, 5, 6], [7]],
+      image: this.animationStrip,
+    };
+    this.animation = new Animation(this.sprite_sheet.frame_sets[0], 30);
+  }
+
   movingDirection(direction) {
     this.movement.currentFrame = this.movement.currentFrame + 1;
     if (this.movement.currentFrame <= this.movement.frameToReach) {

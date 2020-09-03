@@ -81,6 +81,9 @@ export default class Game {
 
   startGlassGame() {
     this.activePlayers.forEach((element) => {
+      if (element.user === 'chaosshield') {
+        element.player.changeStripToBeatrice();
+      }
       this.extractedPlayers.push(element.player);
     });
     this.activePlayers.forEach((object) => object.player.determineOtherTeams());
