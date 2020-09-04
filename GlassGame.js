@@ -26,7 +26,7 @@ export default class GlassGame {
     this.glassTilesBreaking = [];
     this.glassTilesNotBreaking = [];
     this.indexedGlassTiles = [];
-    this.breakTimer = 56;
+    this.breakTimer = 42;
     this.animationTimer = 0;
     this.timer = 0;
     this.backGroundImage = document.getElementById('lavaBackground');
