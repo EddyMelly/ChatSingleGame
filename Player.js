@@ -119,8 +119,8 @@ export default class Player {
     );
   }
 
-  changeStripToBeatrice() {
-    this.animationStrip = document.getElementById('beatriceAnimationStrip');
+  changeAnimationStrip(animationStrip) {
+    this.animationStrip = animationStrip;
     this.sprite_sheet = {
       frame_sets: [[0, 1], [2, 3, 4, 5, 6], [7]],
       image: this.animationStrip,

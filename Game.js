@@ -82,7 +82,12 @@ export default class Game {
   startGlassGame() {
     this.activePlayers.forEach((element) => {
       if (element.user === 'chaosshield') {
-        element.player.changeStripToBeatrice();
+        var animationStrip = document.getElementById('beatriceAnimationStrip');
+        element.player.changeAnimationStrip(animationStrip);
+      }
+      if (element.user === 'ceremor') {
+        var animationStrip = document.getElementById('ceremorAnimationStrip');
+        element.player.changeAnimationStrip(animationStrip);
       }
       this.extractedPlayers.push(element.player);
     });
