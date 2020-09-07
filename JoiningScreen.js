@@ -46,7 +46,7 @@ export default class JoiningScreen {
         this.game.startGlassGame();
       } else {
         this.timer = 20;
-        this.minimumPlayers = 4;
+        this.minimumPlayers = 3;
       }
     }
   }

@@ -85,6 +85,7 @@ export default class Game {
         snapshot.docs.forEach((doc) => {
           if (doc) {
             try {
+              console.log('pushing');
               this.topScorers.push({
                 id: doc.id,
                 userName: doc.data().userName,
