@@ -9,9 +9,12 @@ import { playSound } from './PlaySound.js';
 import { restart } from './index.js';
 import { GAMESTATE, COLOUR, SOUNDS } from './SharedConstants.js';
 
+export const db = firebase.firestore();
+
 export default class Game {
   constructor(gameWidth, gameHeight, ctx, gameArea) {
     this.gameArea = gameArea;
+    this.topScorers = [];
     this.ctx = ctx;
     this.glassGame = null;
     this.gameWidth = gameWidth;
@@ -70,6 +73,29 @@ export default class Game {
     this.currentGameState = null;
     this.allPlayers = [];
     this.extractedPlayers = [];
+    this.getLeaderboard();
+  }
+
+  getLeaderboard() {
+    db.collection('winners')
+      .orderBy('winsTotal', 'desc')
+      .limit(5)
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          if (doc) {
+            try {
+              this.topScorers.push({
+                id: doc.id,
+                userName: doc.data().userName,
+                winsTotal: doc.data().winsTotal,
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        });
+      });
   }
 
   start() {
@@ -159,9 +185,22 @@ export default class Game {
 
   victory(player) {
     if (player && player.playerState === 0) {
-      this.victoryScreen = new VictoryScreen(this, player.colour);
+      var winnerUserName;
+      var foundPlayer = this.activePlayers.find(
+        (element) => element.teamColour === player.colour
+      );
+      if (foundPlayer) {
+        winnerUserName = foundPlayer.user;
+      } else {
+        winnerUserName = null;
+      }
+      this.victoryScreen = new VictoryScreen(
+        this,
+        player.colour,
+        winnerUserName
+      );
     } else {
-      this.victoryScreen = new VictoryScreen(this, 'no');
+      this.victoryScreen = new VictoryScreen(this, 'no', winnerUserName);
     }
     this.currentGameState = GAMESTATE.VICTORY;
     playSound(SOUNDS.VICTORY);

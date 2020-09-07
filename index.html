@@ -7,11 +7,7 @@
     <meta name="description" content="Chat Party Game">
     <meta name="author" content="EdgarMelons">
     <link href="index.css" rel="stylesheet">
-    <script src="./index.js" type="module"></script>
-    <script src="./TwitchApi.js" type="module"></script>
-    <script src="./Game.js" type="module"></script>
-    <script src="./purify.min.js"></script>
-    <script src="./twitch.js"></script>
+    
     
     <link rel="icon" type="image/png" href="images/favicon32x32.png" sizes="32x32" />
 
@@ -64,6 +60,34 @@
             <span style="color:#FBFBFB;font-family:'MS Sans Serif';font-size:48px;"><strong>Chat Single Game v1</strong></span></div>
         <div id="wb_Text1" style="position:absolute;left:830px;top:62px;width:42px;height:30px;text-align:center;z-index:3;"></div>
     </div>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBxSLuochObXjLjvwC7oonK0AoYAXuR4fs",
+    authDomain: "chatsinglegame.firebaseapp.com",
+    databaseURL: "https://chatsinglegame.firebaseio.com",
+    projectId: "chatsinglegame",
+    storageBucket: "chatsinglegame.appspot.com",
+    messagingSenderId: "424375115881",
+    appId: "1:424375115881:web:2b09f5fd4ec1b1b96c02f8"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+ 
+  
+</script>
+<script src="./index.js" type="module"></script>
+<script src="./purify.min.js"></script>
+<script src="./twitch.js"></script>
+    
     
 </body>
 </html>
