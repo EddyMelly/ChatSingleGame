@@ -54,9 +54,7 @@ export default class VictoryScreen {
                 userName: userName,
                 winsTotal: 1,
               })
-              .then(function (docRef) {
-                console.log('new document written');
-              })
+              .then(function (docRef) {})
               .catch(function (error) {
                 console.error('Error adding document: ', error);
               });
@@ -65,9 +63,7 @@ export default class VictoryScreen {
               db.collection('winners')
                 .doc(doc.id)
                 .set({ winsTotal: doc.data().winsTotal + 1 }, { merge: true })
-                .then(function () {
-                  console.log('Document successfully written!');
-                })
+                .then(function () {})
                 .catch(function (error) {
                   console.error('Error writing document: ', error);
                 });
