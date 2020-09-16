@@ -1,11 +1,11 @@
 import { GAMESTATE, COLOUR, DIRECTIONS } from './SharedConstants.js';
 import { playSound } from './PlaySound.js';
-var lowestTeam = 'red';
 export default class TwitchApi {
   constructor(channel, game) {
     this.channel = channel;
     this.users = [];
     this.game = game;
+    this.previousInstruction = {};
     this.statusElement = document.getElementById('status');
     this.twitchCall = new TwitchJs({
       log: {
@@ -75,22 +75,34 @@ export default class TwitchApi {
             upperCaseMessageClean === DIRECTIONS.DOWN ||
             upperCaseMessageClean === DIRECTIONS.JUMP
           ) {
-            this.performInstruction(clean_username, upperCaseMessageClean);
+            this.performInstruction(
+              clean_username,
+              upperCaseMessageClean,
+              clean_message
+            );
           }
       }
     });
   }
 
-  performInstruction(userName, instruction) {
+  performInstruction(userName, instruction, originalMessage) {
     var result = this.game.activePlayers.find(
       (player) => player.user === userName
     );
     if (result) {
-      this.completeInstruction(result.player, instruction);
-      this.game.contestantPanels.changeInstruction(
-        instruction,
-        result.teamColour
-      );
+      if (this.previousInstruction[userName] !== originalMessage) {
+        this.completeInstruction(result.player, instruction);
+        this.game.contestantPanels.changeInstruction(
+          instruction,
+          result.teamColour
+        );
+        this.previousInstruction[userName] = originalMessage;
+      } else {
+        this.game.contestantPanels.changeInstruction(
+          'MOD CHEATING',
+          result.teamColour
+        );
+      }
     }
   }
 
@@ -127,6 +139,8 @@ export default class TwitchApi {
         var emptyTeam = this.game.playerTeams.find((x) => x.user === null);
         // add player to Team
         emptyTeam.user = cleanUserName;
+
+        this.previousInstruction[cleanUserName] = 'test';
 
         //add player to all players
         this.game.allPlayers.push({
