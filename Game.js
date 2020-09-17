@@ -28,41 +28,49 @@ export default class Game {
         teamColour: COLOUR.ORANGE,
         user: null,
         player: new Player(this, COLOUR.ORANGE),
+        isMod: false,
       },
       {
         teamColour: COLOUR.TEAL,
         user: null,
         player: new Player(this, COLOUR.TEAL),
+        isMod: false,
       },
       {
         teamColour: COLOUR.PURPLE,
         user: null,
         player: new Player(this, COLOUR.PURPLE),
+        isMod: false,
       },
       {
         teamColour: COLOUR.PINK,
         user: null,
         player: new Player(this, COLOUR.PINK),
+        isMod: false,
       },
       {
         teamColour: COLOUR.RED,
         user: null,
         player: new Player(this, COLOUR.RED),
+        isMod: false,
       },
       {
         teamColour: COLOUR.BLUE,
         user: null,
         player: new Player(this, COLOUR.BLUE),
+        isMod: false,
       },
       {
         teamColour: COLOUR.GREEN,
         user: null,
         player: new Player(this, COLOUR.GREEN),
+        isMod: false,
       },
       {
         teamColour: COLOUR.YELLOW,
         user: null,
         player: new Player(this, COLOUR.YELLOW),
+        isMod: false,
       },
     ];
     this.activePlayers = [];

@@ -58,7 +58,7 @@ export default class TwitchApi {
       switch (this.game.currentGameState) {
         case GAMESTATE.JOINING:
           if (upperCaseMessageClean === 'JOIN') {
-            this.addUserToColour(clean_username);
+            this.addUserToColour(clean_username, message);
           }
           break;
         case GAMESTATE.PAUSED:
@@ -85,21 +85,45 @@ export default class TwitchApi {
     });
   }
 
+  determineModStatus(message) {
+    if (message.tags.badges) {
+      if (
+        'broadcaster' in message.tags.badges ||
+        'moderator' in message.tags.badges
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
   performInstruction(userName, instruction, originalMessage) {
     var result = this.game.activePlayers.find(
       (player) => player.user === userName
     );
+
     if (result) {
-      if (this.previousInstruction[userName] !== originalMessage) {
+      if (result.isMod === true) {
+        if (this.previousInstruction[userName] !== originalMessage) {
+          this.completeInstruction(result.player, instruction);
+          this.game.contestantPanels.changeInstruction(
+            instruction,
+            result.teamColour
+          );
+          this.previousInstruction[userName] = originalMessage;
+        } else {
+          this.game.contestantPanels.changeInstruction(
+            'MOD CHEATING',
+            result.teamColour
+          );
+        }
+      } else {
         this.completeInstruction(result.player, instruction);
         this.game.contestantPanels.changeInstruction(
           instruction,
-          result.teamColour
-        );
-        this.previousInstruction[userName] = originalMessage;
-      } else {
-        this.game.contestantPanels.changeInstruction(
-          'MOD CHEATING',
           result.teamColour
         );
       }
@@ -128,19 +152,25 @@ export default class TwitchApi {
     }
   }
 
-  addUserToColour(cleanUserName) {
+  addUserToColour(cleanUserName, message) {
     if (this.game.playerTeams.length > 0) {
       if (!this.checkIfJoined(cleanUserName)) {
         if (cleanUserName === 'chaosshield') {
           var sound = document.getElementById('chaosLaugh');
           playSound(sound);
         }
+
+        //determine mod status
+        var isMod = this.determineModStatus(message);
         //find empty team
         var emptyTeam = this.game.playerTeams.find((x) => x.user === null);
         // add player to Team
         emptyTeam.user = cleanUserName;
+        emptyTeam.isMod = isMod;
 
-        this.previousInstruction[cleanUserName] = 'test';
+        if (isMod) {
+          this.previousInstruction[cleanUserName] = 'test';
+        }
 
         //add player to all players
         this.game.allPlayers.push({
