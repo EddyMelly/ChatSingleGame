@@ -107,19 +107,12 @@ export default class TwitchApi {
 
     if (result) {
       if (result.isMod === true) {
-        if (this.previousInstruction[userName] !== originalMessage) {
-          this.completeInstruction(result.player, instruction);
-          this.game.contestantPanels.changeInstruction(
-            instruction,
-            result.teamColour
-          );
-          this.previousInstruction[userName] = originalMessage;
-        } else {
-          this.game.contestantPanels.changeInstruction(
-            'MOD CHEATING',
-            result.teamColour
-          );
-        }
+        this.modCheckCompleteInstruction(
+          result,
+          userName,
+          instruction,
+          originalMessage
+        );
       } else {
         this.completeInstruction(result.player, instruction);
         this.game.contestantPanels.changeInstruction(
@@ -127,6 +120,36 @@ export default class TwitchApi {
           result.teamColour
         );
       }
+    }
+  }
+
+  modCheckCompleteInstruction(result, userName, instruction, originalMessage) {
+    if (this.previousInstruction[userName].canInstruct) {
+      if (
+        this.previousInstruction[userName].previousMessage !== originalMessage
+      ) {
+        this.completeInstruction(result.player, instruction);
+        this.game.contestantPanels.changeInstruction(
+          instruction,
+          result.teamColour
+        );
+
+        this.previousInstruction[userName].canInstruct = false;
+        this.previousInstruction[userName].previousMessage = originalMessage;
+        setTimeout(() => {
+          this.previousInstruction[userName].canInstruct = true;
+        }, 1250);
+      } else {
+        this.game.contestantPanels.changeInstruction(
+          'MOD CHEATING',
+          result.teamColour
+        );
+      }
+    } else {
+      this.game.contestantPanels.changeInstruction(
+        'MOD TOO FAST',
+        result.teamColour
+      );
     }
   }
 
@@ -169,7 +192,10 @@ export default class TwitchApi {
         emptyTeam.isMod = isMod;
 
         if (isMod) {
-          this.previousInstruction[cleanUserName] = 'test';
+          this.previousInstruction[cleanUserName] = {
+            canInstruct: true,
+            previousMessage: 'test',
+          };
         }
 
         //add player to all players
