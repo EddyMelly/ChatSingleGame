@@ -138,7 +138,7 @@ export default class TwitchApi {
         this.previousInstruction[userName].previousMessage = originalMessage;
         setTimeout(() => {
           this.previousInstruction[userName].canInstruct = true;
-        }, 1250);
+        }, 1000);
       } else {
         this.game.contestantPanels.changeInstruction(
           'MOD CHEATING',
