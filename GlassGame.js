@@ -181,6 +181,9 @@ export default class GlassGame {
 
       ctx.fillText(this.startMessage, 600, 45);
     }
+    ctx.font = '30px luckiest_guyregular';
+    ctx.fillStyle = 'black';
+    ctx.fillText('ALTERNATE CAPS TO AVOID SPAM FILTER', 600, 685);
     this.glassTiles.forEach((object) => object.tile.draw(ctx));
   }
 }

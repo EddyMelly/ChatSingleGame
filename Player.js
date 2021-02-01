@@ -21,6 +21,8 @@ export default class Player {
     this.canMove = true;
     this.playerState = PLAYER_STATE.ALIVE;
     this.movementBuffer = [];
+    this.campingTimeout = 45;
+    this.ticker = 0;
 
     switch (this.colour) {
       case COLOUR.RED:
@@ -111,6 +113,19 @@ export default class Player {
       frameToReach: 20,
       currentFrame: 0,
     };
+    this.campingTimeout = 45;
+  }
+
+  callEverySecond() {
+    this.campingTimeout--;
+    if (this.campingTimeout === 0) {
+      this.game.contestantPanels.changeInstruction('Camping', this.colour);
+      this.moveJumpBuffer();
+    }
+  }
+
+  resetTimer() {
+    this.campingTimeout = 45;
   }
 
   determineOtherTeams() {
@@ -284,6 +299,11 @@ export default class Player {
           player.push(this.movement.direction);
         }
       });
+    }
+    this.ticker += deltaTime / 1000;
+    if (this.ticker >= 1) {
+      this.callEverySecond();
+      this.ticker = 0;
     }
     this.animation.update(deltaTime);
 
