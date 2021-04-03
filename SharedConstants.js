@@ -5,6 +5,10 @@ export const GAMESTATE = {
   VICTORY: 3,
 };
 
+export const truncateString = (str) => {
+  return str.length > 15 ? str.substr(0, 15) + '...' : str;
+};
+
 export const COLOUR = {
   RED: 'RED',
   BLUE: 'BLUE',

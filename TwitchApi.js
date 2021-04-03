@@ -57,7 +57,10 @@ export default class TwitchApi {
 
       switch (this.game.currentGameState) {
         case GAMESTATE.JOINING:
-          if (upperCaseMessageClean === 'JOIN') {
+          if (
+            upperCaseMessageClean === 'JOIN' ||
+            upperCaseMessageClean === '!JOIN'
+          ) {
             this.addUserToColour(clean_username, message);
           }
           break;

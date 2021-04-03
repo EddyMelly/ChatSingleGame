@@ -15,6 +15,7 @@ export default class Game {
   constructor(gameWidth, gameHeight, ctx, gameArea) {
     this.gameArea = gameArea;
     this.topScorers = [];
+    this.latestScorers = [];
     this.ctx = ctx;
     this.glassGame = null;
     this.gameWidth = gameWidth;
@@ -82,6 +83,7 @@ export default class Game {
     this.allPlayers = [];
     this.extractedPlayers = [];
     this.getLeaderboard();
+    this.getLatestWinners();
   }
 
   getLeaderboard() {
@@ -97,6 +99,26 @@ export default class Game {
                 id: doc.id,
                 userName: doc.data().userName,
                 winsTotal: doc.data().winsTotal,
+              });
+            } catch (error) {
+              console.log(error);
+            }
+          }
+        });
+      });
+  }
+  getLatestWinners() {
+    db.collection('winners')
+      .orderBy('lastWinTimeStamp', 'desc')
+      .limit(5)
+      .get()
+      .then((snapshot) => {
+        snapshot.docs.forEach((doc) => {
+          if (doc) {
+            try {
+              this.latestScorers.push({
+                id: doc.id,
+                userName: doc.data().userName,
               });
             } catch (error) {
               console.log(error);
@@ -199,6 +221,8 @@ export default class Game {
       );
       if (foundPlayer) {
         winnerUserName = foundPlayer.user;
+        this.latestScorers.unshift(winnerUserName);
+        this.latestScorers.pop();
       } else {
         winnerUserName = null;
       }

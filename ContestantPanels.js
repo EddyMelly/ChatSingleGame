@@ -1,4 +1,4 @@
-import { DIRECTIONS, COLOUR } from './SharedConstants.js';
+import { DIRECTIONS, COLOUR, truncateString } from './SharedConstants.js';
 
 export default class ContestantPanels {
   constructor(game) {
@@ -79,7 +79,7 @@ export default class ContestantPanels {
     var tempTeam = this.teamInformation.find(
       (object) => object.colour === team
     );
-    var truncatedName = this.truncate(userName);
+    var truncatedName = truncateString(userName);
     if (tempTeam) {
       tempTeam.userName = truncatedName;
     }
@@ -90,10 +90,6 @@ export default class ContestantPanels {
     ctx.fillStyle = 'black';
     ctx.textAlign = 'center';
     ctx.fillText(instruction, instructionPosition.x, instructionPosition.y);
-  }
-
-  truncate(str) {
-    return str.length > 15 ? str.substr(0, 15) + '...' : str;
   }
 
   draw(ctx) {
