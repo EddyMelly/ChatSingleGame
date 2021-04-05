@@ -1,12 +1,5 @@
 import { DIRECTIONS } from './SharedConstants.js';
 
-// const DIRECTIONS = {
-//   LEFT: 0,
-//   RIGHT: 1,
-//   UP: 2,
-//   DOWN: 3,
-// };
-
 export function lavaDetection(lavaTile, player) {
   if (
     lavaTile.position.x == player.position.x &&
@@ -18,10 +11,13 @@ export function lavaDetection(lavaTile, player) {
   }
 }
 
-export function jumpingDetection(glassTile, player){
-  if(lavaDetection(glassTile, player) && player.movement.direction === DIRECTIONS.JUMP){
+export function jumpingDetection(glassTile, player) {
+  if (
+    lavaDetection(glassTile, player) &&
+    player.movement.direction === DIRECTIONS.JUMP
+  ) {
     return true;
-  }else{
+  } else {
     return false;
   }
 }
@@ -67,7 +63,7 @@ export function pushingDetection(stillPlayer, movingPlayer, movementDirection) {
           stillPlayer.position.x + 5 &&
         movingPlayer.position.x + movingPlayer.width <=
           stillPlayer.position.x + stillPlayer.height &&
-          stillPlayer.canMove
+        stillPlayer.canMove
       ) {
         return true;
       }

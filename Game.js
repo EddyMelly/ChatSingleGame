@@ -221,8 +221,6 @@ export default class Game {
       );
       if (foundPlayer) {
         winnerUserName = foundPlayer.user;
-        this.latestScorers.unshift(winnerUserName);
-        this.latestScorers.pop();
       } else {
         winnerUserName = null;
       }
