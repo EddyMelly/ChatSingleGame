@@ -17,6 +17,9 @@ export class GlassTile {
     this.currentTile = 0;
     this.animationTimer = 0;
     this.timer = 0;
+    this.breakCoolDown = 0;
+    this.lastPlayerLanded = null;
+    this.tileWearOut = 0;
   }
 
   update(deltaTime) {
@@ -34,7 +37,7 @@ export class GlassTile {
       });
     }
 
-    if (!this.breaking) {
+    if (this.currentTile < 3) {
       this.game.activePlayers.forEach((object) => {
         if (jumpingDetection(this, object.player)) {
           this.breaking = true;
@@ -42,18 +45,36 @@ export class GlassTile {
         }
       });
     }
+
+    if (this.tileWearOut >= 6 && !this.breaking) {
+      this.breaking = true;
+      this.break();
+    }
   }
   callEverySecond() {
     this.timer++;
     if (this.timer % 14 === 0) {
       this.break();
     }
+    if (this.breakCoolDown > 0) {
+      this.breakCoolDown = this.breakCoolDown - 1;
+    }
   }
 
   break() {
-    if (this.currentTile < 3) {
+    if (this.currentTile < 3 && this.breakCoolDown === 0) {
       this.currentTile++;
+      this.breakCoolDown = 2;
     }
+  }
+
+  advanceTileWearOut(player) {
+    if (this.lastPlayerLanded == player) {
+      this.tileWearOut = this.tileWearOut + 3;
+    } else {
+      this.tileWearOut = this.tileWearOut + 1;
+    }
+    this.lastPlayerLanded = player;
   }
 
   draw(ctx) {

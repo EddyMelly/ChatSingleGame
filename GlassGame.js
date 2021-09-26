@@ -58,19 +58,31 @@ export default class GlassGame {
 
   chooseTileToBreak() {
     if (this.glassTilesBreaking.length === 0) {
-      var randomTile = this.glassTiles[
-        Math.floor(Math.random() * this.glassTiles.length)
-      ];
+      var randomTile =
+        this.glassTiles[Math.floor(Math.random() * this.glassTiles.length)];
       randomTile.tile.breaking = true;
       randomTile.tile.break();
     } else {
       if (this.glassTilesNotBreaking.length >= 1) {
-        var randomTile = this.glassTilesNotBreaking[
-          Math.floor(Math.random() * this.glassTilesNotBreaking.length)
-        ];
+        var randomTile =
+          this.glassTilesNotBreaking[
+            Math.floor(Math.random() * this.glassTilesNotBreaking.length)
+          ];
         randomTile.tile.breaking = true;
         randomTile.tile.break();
       }
+    }
+  }
+
+  wearOutTile(position, player) {
+    var foundTile = this.glassTiles.find(
+      (tile) =>
+        tile.tile.position.x === position.x &&
+        tile.tile.position.y === position.y
+    );
+
+    if (!foundTile.tile.markedforDeletion) {
+      foundTile.tile.advanceTileWearOut(player);
     }
   }
 

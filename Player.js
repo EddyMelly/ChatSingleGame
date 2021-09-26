@@ -21,7 +21,7 @@ export default class Player {
     this.canMove = true;
     this.playerState = PLAYER_STATE.ALIVE;
     this.movementBuffer = [];
-    this.campingTimeout = 45;
+    this.campingTimeout = 40;
     this.ticker = 0;
 
     switch (this.colour) {
@@ -113,7 +113,7 @@ export default class Player {
       frameToReach: 20,
       currentFrame: 0,
     };
-    this.campingTimeout = 45;
+    this.campingTimeout = 40;
   }
 
   callEverySecond() {
@@ -122,10 +122,6 @@ export default class Player {
       this.game.contestantPanels.changeInstruction('Camping', this.colour);
       this.moveJumpBuffer();
     }
-  }
-
-  resetTimer() {
-    this.campingTimeout = 45;
   }
 
   determineOtherTeams() {
@@ -174,6 +170,9 @@ export default class Player {
     } else {
       if (this.playerState === PLAYER_STATE.ALIVE) {
         this.resetMovement();
+        if (direction !== DIRECTIONS.JUMP) {
+          this.land();
+        }
       }
     }
   }
@@ -266,6 +265,12 @@ export default class Player {
       this.canMove = false;
       playSound(SOUNDS.PUSH);
       this.animation.change(this.sprite_sheet.frame_sets[1], 5);
+    }
+  }
+
+  land() {
+    if (this.game.glassGame) {
+      this.game.glassGame.wearOutTile(this.position, this);
     }
   }
 

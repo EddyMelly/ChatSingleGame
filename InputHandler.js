@@ -17,7 +17,7 @@ export default class InputHandler {
           case 40:
             player.player.moveDownBuffer();
             break;
-          case 74:
+          case 32:
             player.player.moveJumpBuffer();
         }
       } else {
@@ -60,7 +60,7 @@ export default class InputHandler {
             player.player.stop();
           }
           break;
-        case 74:
+        case 32:
           if (player.speed > 0) {
             player.player.stop();
           }

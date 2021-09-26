@@ -1,5 +1,6 @@
 import { COLOUR, truncateString } from './SharedConstants.js';
 import { db } from './Game.js';
+import { DEBUG } from './Debug.js';
 
 export default class VictoryScreen {
   constructor(game, winningTeam, winnerUserName) {
@@ -36,7 +37,8 @@ export default class VictoryScreen {
       default:
         this.winningTeamColour = 'black';
     }
-    this.updateDB(this.winnerUserName);
+
+    !DEBUG && this.updateDB(this.winnerUserName);
   }
 
   update(deltaTime) {}

@@ -1,13 +1,14 @@
 import TwitchApi from './TwitchApi.js';
 import JoiningScreen from './JoiningScreen.js';
 import InputHandler from './InputHandler.js';
-import Player from './Player.js';
 import GlassGame from './GlassGame.js';
 import ContestantPanels from './ContestantPanels.js';
 import VictoryScreen from './VictoryScreen.js';
 import { playSound } from './PlaySound.js';
 import { restart } from './index.js';
 import { GAMESTATE, COLOUR, SOUNDS } from './SharedConstants.js';
+import { getEmptyPlayerTeams } from './GameUtils.js';
+import { DEBUG, startDebugGame } from './Debug.js';
 
 export const db = firebase.firestore();
 
@@ -24,59 +25,9 @@ export default class Game {
     this.victoryScreen;
 
     //Start with no players
-    this.playerTeams = [
-      {
-        teamColour: COLOUR.ORANGE,
-        user: null,
-        player: new Player(this, COLOUR.ORANGE),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.TEAL,
-        user: null,
-        player: new Player(this, COLOUR.TEAL),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.PURPLE,
-        user: null,
-        player: new Player(this, COLOUR.PURPLE),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.PINK,
-        user: null,
-        player: new Player(this, COLOUR.PINK),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.RED,
-        user: null,
-        player: new Player(this, COLOUR.RED),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.BLUE,
-        user: null,
-        player: new Player(this, COLOUR.BLUE),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.GREEN,
-        user: null,
-        player: new Player(this, COLOUR.GREEN),
-        isMod: false,
-      },
-      {
-        teamColour: COLOUR.YELLOW,
-        user: null,
-        player: new Player(this, COLOUR.YELLOW),
-        isMod: false,
-      },
-    ];
+    this.playerTeams = getEmptyPlayerTeams(this);
     this.activePlayers = [];
-    new InputHandler(this.playerTeams[0], this, COLOUR.ORANGE);
-    new InputHandler(this.playerTeams[3], this, COLOUR.PINK);
+    DEBUG && new InputHandler(this.playerTeams[0], this, COLOUR.ORANGE);
     this.JoiningScreen = new JoiningScreen(this);
     this.contestantPanels = new ContestantPanels(this);
     this.currentGameState = null;
@@ -129,10 +80,14 @@ export default class Game {
   }
 
   start() {
-    this.currentGameState = GAMESTATE.JOINING;
-    this.gameObjects = [this.JoiningScreen];
-    this.TwitchApi = new TwitchApi('ceremor', this);
-    this.TwitchApi.connectTwitchChat();
+    if (DEBUG) {
+      startDebugGame(this);
+    } else {
+      this.currentGameState = GAMESTATE.JOINING;
+      this.gameObjects = [this.JoiningScreen];
+      this.TwitchApi = new TwitchApi('ceremor', this);
+      this.TwitchApi.connectTwitchChat();
+    }
   }
 
   startGlassGame() {
