@@ -46,7 +46,7 @@ export class GlassTile {
       });
     }
 
-    if (this.tileWearOut >= 6 && !this.breaking) {
+    if (this.tileWearOut >= 8 && !this.breaking) {
       this.breaking = true;
       this.break();
     }
