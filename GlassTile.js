@@ -46,7 +46,7 @@ export class GlassTile {
       });
     }
 
-    if (this.tileWearOut >= 9 && !this.breaking) {
+    if (this.tileWearOut >= 8 && !this.breaking) {
       this.breaking = true;
       this.break();
     }
@@ -70,7 +70,7 @@ export class GlassTile {
 
   advanceTileWearOut(player) {
     if (this.lastPlayerLanded == player) {
-      this.tileWearOut = this.tileWearOut + 3;
+      this.tileWearOut = this.tileWearOut + 2;
     }
     this.lastPlayerLanded = player;
   }
