@@ -1,7 +1,12 @@
 import Animation from './Animation.js';
 import { pushingDetection } from './CollisionDetection.js';
-import { GAMESTATE, DIRECTIONS, COLOUR, SOUNDS } from './SharedConstants.js';
+import {
+  DIRECTIONS,
+  SOUNDS,
+  retrievePlayerInformation,
+} from './SharedConstants.js';
 import { playSound } from './PlaySound.js';
+
 const SPRITE_SIZE = 50;
 
 const PLAYER_STATE = {
@@ -11,85 +16,26 @@ const PLAYER_STATE = {
 export default class Player {
   constructor(game, colour) {
     this.colour = colour;
-    this.width = 50;
+    this.width = SPRITE_SIZE;
     this.game = game;
-    this.height = 50;
+    this.height = SPRITE_SIZE;
     this.otherPlayers = [];
-    let xPosition = this.game.gameArea.endX - this.width;
-    let yPosition = this.game.gameArea.endY - this.height;
-    this.position = { x: xPosition, y: yPosition };
     this.canMove = true;
     this.playerState = PLAYER_STATE.ALIVE;
     this.movementBuffer = [];
-    this.campingTimeout = 40;
+    this.campingTimeout = 35;
     this.ticker = 0;
 
-    switch (this.colour) {
-      case COLOUR.RED:
-        this.position = {
-          x: this.game.gameArea.startX + 100,
-          y: this.game.gameArea.startY + 200,
-        };
-        this.animationStrip = document.getElementById('redAnimationStrip');
-        this.jumpSound = document.getElementById('redJumpSound');
-        break;
-      case COLOUR.BLUE:
-        this.position = {
-          x: this.game.gameArea.endX - 250,
-          y: this.game.gameArea.startY + 100,
-        };
-        this.animationStrip = document.getElementById('blueAnimationStrip');
-        this.jumpSound = document.getElementById('blueJumpSound');
-        break;
-      case COLOUR.GREEN:
-        this.position = {
-          x: this.game.gameArea.startX + 200,
-          y: this.game.gameArea.endY - 150,
-        };
-        this.animationStrip = document.getElementById('greenAnimationStrip');
-        this.jumpSound = document.getElementById('greenJumpSound');
-        break;
-      case COLOUR.YELLOW:
-        this.position = {
-          x: this.game.gameArea.endX - 150,
-          y: this.game.gameArea.endY - 250,
-        };
-        this.animationStrip = document.getElementById('yellowAnimationStrip');
-        this.jumpSound = document.getElementById('yellowJumpSound');
-        break;
-      case COLOUR.ORANGE:
-        this.position = {
-          x: this.game.gameArea.startX + this.width,
-          y: this.game.gameArea.startY + this.height,
-        };
-        this.animationStrip = document.getElementById('orangeAnimationStrip');
-        this.jumpSound = document.getElementById('redJumpSound');
-        break;
-      case COLOUR.TEAL:
-        this.position = {
-          x: this.game.gameArea.startX + this.width,
-          y: this.game.gameArea.endY - this.height * 2,
-        };
-        this.animationStrip = document.getElementById('tealAnimationStrip');
-        this.jumpSound = document.getElementById('blueJumpSound');
-        break;
-      case COLOUR.PURPLE:
-        this.position = {
-          x: this.game.gameArea.endX - this.width * 2,
-          y: this.game.gameArea.endY - this.height * 2,
-        };
-        this.animationStrip = document.getElementById('purpleAnimationStrip');
-        this.jumpSound = document.getElementById('greenJumpSound');
-        break;
-      case COLOUR.PINK:
-        this.position = {
-          x: this.game.gameArea.endX - this.width * 2,
-          y: this.game.gameArea.startY + this.height,
-        };
-        this.animationStrip = document.getElementById('pinkAnimationStrip');
-        this.jumpSound = document.getElementById('yellowJumpSound');
-        break;
-    }
+    const { position, animationStrip, jumpSound } = retrievePlayerInformation(
+      game,
+      this.height,
+      this.width,
+      colour
+    );
+
+    this.position = position;
+    this.animationStrip = animationStrip;
+    this.jumpSound = jumpSound;
 
     this.sprite_sheet = {
       frame_sets: [[0, 1], [2, 3, 4, 5, 6], [7]],

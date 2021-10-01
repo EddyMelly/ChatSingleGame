@@ -1,9 +1,9 @@
 export const DEBUG = false;
 
 export const debugPlayerNames = [
-  'edgarmelons',
-  'mark',
-  'brian',
+  'mindlessness',
+  'ceremor',
+  'chaosshield',
   'alex',
   'susan',
   'jeremy',
