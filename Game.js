@@ -100,6 +100,10 @@ export default class Game {
         var animationStrip = document.getElementById('ceremorAnimationStrip');
         element.player.changeAnimationStrip(animationStrip);
       }
+      if (element.user === 'mindlessness') {
+        var animationStrip = document.getElementById('mindlessAnimationStrip');
+        element.player.changeAnimationStrip(animationStrip);
+      }
       this.extractedPlayers.push(element.player);
     });
     this.activePlayers.forEach((object) => object.player.determineOtherTeams());
