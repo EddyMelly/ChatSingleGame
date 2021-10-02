@@ -4,15 +4,12 @@ import {
   DIRECTIONS,
   SOUNDS,
   retrievePlayerInformation,
+  PLAYER_STATE,
 } from './SharedConstants.js';
 import { playSound } from './PlaySound.js';
 
 const SPRITE_SIZE = 50;
 
-const PLAYER_STATE = {
-  ALIVE: 0,
-  DEAD: 1,
-};
 export default class Player {
   constructor(game, colour) {
     this.colour = colour;
@@ -200,6 +197,7 @@ export default class Player {
       this.movement.activated = true;
       playSound(this.jumpSound);
       this.animation.change(this.sprite_sheet.frame_sets[1], 5);
+      this.landFromJumping();
     }
   }
   // EXPERIMENTAL JUMP FEATURE
@@ -216,7 +214,17 @@ export default class Player {
 
   land() {
     if (this.game.glassGame) {
-      this.game.glassGame.wearOutTile(this.position, this);
+      const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
+      console.log('LANDEED ON TILE', landedOnTile);
+      landedOnTile?.moveToTile(this);
+    }
+    console.log(this.game.topScorers[0]);
+  }
+
+  landFromJumping() {
+    if (this.game.glassGame) {
+      const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
+      landedOnTile?.break();
     }
   }
 

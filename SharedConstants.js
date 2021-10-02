@@ -9,6 +9,11 @@ export const truncateString = (str) => {
   return str.length > 15 ? str.substr(0, 15) + '...' : str;
 };
 
+export const PLAYER_STATE = {
+  ALIVE: 0,
+  DEAD: 1,
+};
+
 export const COLOUR = {
   RED: 'RED',
   BLUE: 'BLUE',

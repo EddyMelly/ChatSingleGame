@@ -74,16 +74,13 @@ export default class GlassGame {
     }
   }
 
-  wearOutTile(position, player) {
-    var foundTile = this.glassTiles.find(
+  getTileLandedOn(position) {
+    const { tile } = this.glassTiles.find(
       (tile) =>
         tile.tile.position.x === position.x &&
         tile.tile.position.y === position.y
     );
-
-    if (!foundTile.tile.markedforDeletion) {
-      foundTile.tile.advanceTileWearOut(player);
-    }
+    return tile;
   }
 
   chooseTilesToBreak() {

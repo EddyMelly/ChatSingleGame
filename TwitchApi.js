@@ -1,5 +1,6 @@
-import { GAMESTATE, COLOUR, DIRECTIONS } from './SharedConstants.js';
+import { GAMESTATE, DIRECTIONS, PLAYER_STATE } from './SharedConstants.js';
 import { playSound } from './PlaySound.js';
+
 export default class TwitchApi {
   constructor(channel, game) {
     this.channel = channel;
@@ -108,7 +109,7 @@ export default class TwitchApi {
       (player) => player.user === userName
     );
 
-    if (result) {
+    if (result && result.player.playerState === PLAYER_STATE.ALIVE) {
       if (result.isMod === true) {
         this.modCheckCompleteInstruction(
           result,
@@ -144,7 +145,7 @@ export default class TwitchApi {
         }, 1000);
       } else {
         this.game.contestantPanels.changeInstruction(
-          'MOD CHEATING',
+          'MOD REPEATING',
           result.teamColour
         );
       }

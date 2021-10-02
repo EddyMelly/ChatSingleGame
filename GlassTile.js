@@ -1,4 +1,4 @@
-import { lavaDetection, jumpingDetection } from './CollisionDetection.js';
+import { lavaDetection } from './CollisionDetection.js';
 
 const TILE_SIZE = 50;
 export class GlassTile {
@@ -17,7 +17,6 @@ export class GlassTile {
     this.currentTile = 0;
     this.animationTimer = 0;
     this.timer = 0;
-    this.breakCoolDown = 0;
     this.lastPlayerLanded = null;
     this.tileWearOut = 0;
   }
@@ -36,41 +35,29 @@ export class GlassTile {
         }
       });
     }
-
-    if (this.currentTile < 3) {
-      this.game.activePlayers.forEach((object) => {
-        if (jumpingDetection(this, object.player)) {
-          this.breaking = true;
-          this.break();
-        }
-      });
-    }
-
-    if (this.tileWearOut >= 8 && !this.breaking) {
-      this.breaking = true;
-      this.break();
-    }
   }
+
   callEverySecond() {
     this.timer++;
     if (this.timer % 14 === 0) {
       this.break();
     }
-    if (this.breakCoolDown > 0) {
-      this.breakCoolDown = this.breakCoolDown - 1;
-    }
   }
 
   break() {
-    if (this.currentTile < 3 && this.breakCoolDown === 0) {
+    this.breaking = true;
+    if (this.currentTile < 3) {
       this.currentTile++;
-      this.breakCoolDown = 2;
     }
   }
 
-  advanceTileWearOut(player) {
+  moveToTile(player) {
+    console.log('movedToTile');
     if (this.lastPlayerLanded == player) {
       this.tileWearOut = this.tileWearOut + 2;
+      if (this.tileWearOut >= 8) {
+        this.break();
+      }
     }
     this.lastPlayerLanded = player;
   }
