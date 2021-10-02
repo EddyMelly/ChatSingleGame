@@ -3,6 +3,7 @@ import { DIRECTIONS, COLOUR, truncateString } from './SharedConstants.js';
 export default class ContestantPanels {
   constructor(game) {
     this.game = game;
+    this.crownImage = document.getElementById('crownImage');
 
     this.teamInformation = [
       {
@@ -108,6 +109,15 @@ export default class ContestantPanels {
         element.teamNamePositions.x,
         element.teamNamePositions.y + yposition
       );
+      if (element.userName === this.game.topScorers[0]?.userName) {
+        ctx.drawImage(
+          this.crownImage,
+          element.teamNamePositions.x + 110,
+          element.teamNamePositions.y + 30,
+          25,
+          25
+        );
+      }
     });
   }
 }
