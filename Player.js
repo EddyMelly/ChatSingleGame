@@ -215,10 +215,8 @@ export default class Player {
   land() {
     if (this.game.glassGame) {
       const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
-      console.log('LANDEED ON TILE', landedOnTile);
       landedOnTile?.moveToTile(this);
     }
-    console.log(this.game.topScorers[0]);
   }
 
   landFromJumping() {
