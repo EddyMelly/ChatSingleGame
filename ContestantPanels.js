@@ -109,14 +109,16 @@ export default class ContestantPanels {
         element.teamNamePositions.x,
         element.teamNamePositions.y + yposition
       );
-      if (element.userName === this.game.topScorers[0]?.userName) {
-        ctx.drawImage(
-          this.crownImage,
-          element.teamNamePositions.x + 110,
-          element.teamNamePositions.y + 30,
-          25,
-          25
-        );
+      if (this.game.topScorers[0]) {
+        if (element.userName === this.game.topScorers[0].userName) {
+          ctx.drawImage(
+            this.crownImage,
+            element.teamNamePositions.x + 110,
+            element.teamNamePositions.y + 30,
+            25,
+            25
+          );
+        }
       }
     });
   }

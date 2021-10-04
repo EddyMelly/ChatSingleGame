@@ -215,14 +215,14 @@ export default class Player {
   land() {
     if (this.game.glassGame) {
       const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
-      landedOnTile?.moveToTile(this);
+      landedOntile && landedOnTile.moveToTile(this);
     }
   }
 
   landFromJumping() {
     if (this.game.glassGame) {
       const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
-      landedOnTile?.break();
+      landedOnTile && landedOnTile.break();
     }
   }
 
