@@ -215,7 +215,7 @@ export default class Player {
   land() {
     if (this.game.glassGame) {
       const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
-      landedOntile && landedOnTile.moveToTile(this);
+      landedOnTile && landedOnTile.moveToTile(this);
     }
   }
 
