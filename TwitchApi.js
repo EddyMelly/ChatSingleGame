@@ -1,4 +1,4 @@
-import { GAMESTATE, DIRECTIONS, PLAYER_STATE } from './SharedConstants.js';
+import { GAMESTATE, DIRECTIONS } from './SharedConstants.js';
 import { playSound } from './PlaySound.js';
 
 export default class TwitchApi {
@@ -41,8 +41,8 @@ export default class TwitchApi {
       })
       .catch(function (err) {
         console.log(err);
-        statusElement.innerHTML = 'Error: Cant connect right now';
-        statusElement.style.color = 'red';
+        this.statusElement.innerHTML = 'Error: Cant connect right now';
+        this.statusElement.style.color = 'red';
       });
 
     chat.on('*', (message) => {
@@ -109,7 +109,7 @@ export default class TwitchApi {
       (player) => player.user === userName
     );
 
-    if (result && result.player.playerState === PLAYER_STATE.ALIVE) {
+    if (result) {
       if (result.isMod === true) {
         this.modCheckCompleteInstruction(
           result,
