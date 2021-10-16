@@ -51,15 +51,15 @@ export class GlassTile {
     }
   }
 
-  moveToTile(player) {
-    if (this.lastPlayerLanded == player) {
-      this.tileWearOut = this.tileWearOut + 2;
-      if (this.tileWearOut >= 8) {
-        this.break();
-      }
-    }
-    this.lastPlayerLanded = player;
-  }
+  // moveToTile(player) {
+  //   if (this.lastPlayerLanded == player) {
+  //     this.tileWearOut = this.tileWearOut + 2;
+  //     if (this.tileWearOut >= 8) {
+  //       this.break();
+  //     }
+  //   }
+  //   this.lastPlayerLanded = player;
+  // }
 
   draw(ctx) {
     ctx.drawImage(

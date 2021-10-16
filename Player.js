@@ -107,15 +107,11 @@ export default class Player {
           //}
           break;
         case DIRECTIONS.JUMP:
-          this.position.x = this.position.x;
           break;
       }
     } else {
       if (this.playerState === PLAYER_STATE.ALIVE) {
         this.resetMovement();
-        if (direction !== DIRECTIONS.JUMP) {
-          this.land();
-        }
       }
     }
   }
@@ -212,12 +208,12 @@ export default class Player {
     }
   }
 
-  land() {
-    if (this.game.glassGame) {
-      const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
-      landedOnTile && landedOnTile.moveToTile(this);
-    }
-  }
+  // land() {
+  //   if (this.game.glassGame) {
+  //     const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
+  //     // landedOnTile && landedOnTile.moveToTile(this);
+  //   }
+  // }
 
   landFromJumping() {
     if (this.game.glassGame) {
@@ -247,7 +243,7 @@ export default class Player {
   update(deltaTime) {
     if (this.movementBuffer.length !== 0 && this.canMove) {
       this.movementBuffer[0]();
-      var completedMovement = this.movementBuffer.shift();
+      this.movementBuffer.shift();
     }
     if (this.movement.activated) {
       this.movingDirection(this.movement.direction);
