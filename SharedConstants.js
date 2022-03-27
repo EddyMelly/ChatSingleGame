@@ -42,6 +42,14 @@ export const SOUNDS = {
   BLOOP: document.getElementById('bloopSound'),
 };
 
+export const CUSTOMSTRIPS = {
+  'chaosshield': document.getElementById('beatriceAnimationStrip'),
+  'ceremor': document.getElementById('ceremorAnimationStrip'),
+  'mindlessness': document.getElementById('mindlessAnimationStrip'),
+  'wzdew': document.getElementById('wzdewAnimationStrip'),
+  'meet_the_seed': document.getElementById('meetAnimationStrip')
+}
+
 export const retrievePlayerInformation = (game, width, height, colour) => {
   const playerInfo = {
     [COLOUR.RED]: {

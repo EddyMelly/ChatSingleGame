@@ -6,7 +6,7 @@ import ContestantPanels from './ContestantPanels.js';
 import VictoryScreen from './VictoryScreen.js';
 import { playSound } from './PlaySound.js';
 import { restart } from './index.js';
-import { GAMESTATE, COLOUR, SOUNDS } from './SharedConstants.js';
+import { GAMESTATE, COLOUR, SOUNDS, CUSTOMSTRIPS } from './SharedConstants.js';
 import { getEmptyPlayerTeams } from './GameUtils.js';
 import { DEBUG, startDebugGame } from './Debug.js';
 
@@ -92,30 +92,8 @@ export default class Game {
 
   startGlassGame() {
     this.activePlayers.forEach((element) => {
-      if (element.user === 'chaosshield') {
-        element.player.changeAnimationStrip(
-          document.getElementById('beatriceAnimationStrip')
-        );
-      }
-      if (element.user === 'ceremor') {
-        element.player.changeAnimationStrip(
-          document.getElementById('ceremorAnimationStrip')
-        );
-      }
-      if (element.user === 'mindlessness') {
-        element.player.changeAnimationStrip(
-          document.getElementById('mindlessAnimationStrip')
-        );
-      }
-      if (element.user === 'wzdew') {
-        element.player.changeAnimationStrip(
-          document.getElementById('wzdewAnimationStrip')
-        );
-      }
-      if (element.user === 'meet_the_seed') {
-        element.player.changeAnimationStrip(
-          document.getElementById('meetAnimationStrip')
-        );
+      if(CUSTOMSTRIPS[element.user]){
+        element.player.changeAnimationStrip(CUSTOMSTRIPS[element.user])
       }
       this.extractedPlayers.push(element.player);
     });
