@@ -93,16 +93,24 @@ export default class Game {
   startGlassGame() {
     this.activePlayers.forEach((element) => {
       if (element.user === 'chaosshield') {
-        var animationStrip = document.getElementById('beatriceAnimationStrip');
-        element.player.changeAnimationStrip(animationStrip);
+        element.player.changeAnimationStrip(
+          document.getElementById('beatriceAnimationStrip')
+        );
       }
       if (element.user === 'ceremor') {
-        var animationStrip = document.getElementById('ceremorAnimationStrip');
-        element.player.changeAnimationStrip(animationStrip);
+        element.player.changeAnimationStrip(
+          document.getElementById('ceremorAnimationStrip')
+        );
       }
       if (element.user === 'mindlessness') {
-        var animationStrip = document.getElementById('mindlessAnimationStrip');
-        element.player.changeAnimationStrip(animationStrip);
+        element.player.changeAnimationStrip(
+          document.getElementById('mindlessAnimationStrip')
+        );
+      }
+      if (element.user === 'wzdew') {
+        element.player.changeAnimationStrip(
+          document.getElementById('wzdewAnimationStrip')
+        );
       }
       this.extractedPlayers.push(element.player);
     });

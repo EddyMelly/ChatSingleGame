@@ -1,4 +1,4 @@
-import { DIRECTIONS, COLOUR, truncateString } from './SharedConstants.js';
+import { COLOUR, truncateString } from './SharedConstants.js';
 
 export default class ContestantPanels {
   constructor(game) {
