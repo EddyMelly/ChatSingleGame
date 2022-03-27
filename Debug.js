@@ -1,11 +1,11 @@
 export const DEBUG = false;
 
 export const debugPlayerNames = [
+  'meet_the_seed',
   'wzdew',
-  'ceremor',
   'chaosshield',
   'mindlessness',
-  'susan',
+  'ceremor',
   'jeremy',
   'chris',
   'matt',

@@ -112,6 +112,11 @@ export default class Game {
           document.getElementById('wzdewAnimationStrip')
         );
       }
+      if (element.user === 'meet_the_seed') {
+        element.player.changeAnimationStrip(
+          document.getElementById('meetAnimationStrip')
+        );
+      }
       this.extractedPlayers.push(element.player);
     });
     this.activePlayers.forEach((object) => object.player.determineOtherTeams());
