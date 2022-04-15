@@ -47,7 +47,8 @@ export const CUSTOMSTRIPS = {
   'ceremor': document.getElementById('ceremorAnimationStrip'),
   'mindlessness': document.getElementById('mindlessAnimationStrip'),
   'wzdew': document.getElementById('wzdewAnimationStrip'),
-  'meet_the_seed': document.getElementById('meetAnimationStrip')
+  'meet_the_seed': document.getElementById('meetAnimationStrip'),
+  'deadlee15': document.getElementById('deadleeAnimationStrip')
 }
 
 export const retrievePlayerInformation = (game, width, height, colour) => {
