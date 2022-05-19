@@ -54,6 +54,7 @@ export const CUSTOMSTRIPS = {
 export const CUSTOMWINSOUNDS = {
   deadlee15: document.getElementById("deadleeWinSound"),
   meet_the_seed: document.getElementById("meetWinSound"),
+  wzdew: document.getElementById("wzdewWinSound"),
 };
 
 export const retrievePlayerInformation = (game, width, height, colour) => {
