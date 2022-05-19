@@ -1,6 +1,6 @@
-import { GlassTile } from './GlassTile.js';
-import { SOUNDS } from './SharedConstants.js';
-import { playSound } from './PlaySound.js';
+import { GlassTile } from "./GlassTile.js";
+import { SOUNDS } from "./SharedConstants.js";
+import { playSound } from "./PlaySound.js";
 const LEVEL_STATE = {
   PAUSED: 0,
   RUNNING: 1,
@@ -29,8 +29,8 @@ export default class GlassGame {
     this.breakTimer = 40;
     this.animationTimer = 0;
     this.timer = 0;
-    this.backGroundImage = document.getElementById('lavaBackground');
-    this.startMessage = '';
+    this.backGroundImage = document.getElementById("lavaBackground");
+    this.startMessage = "";
     this.buildLevel(this.game);
   }
 
@@ -56,31 +56,17 @@ export default class GlassGame {
     });
   }
 
-  chooseTileToBreak() {
-    if (this.glassTilesBreaking.length === 0) {
-      var randomTile =
-        this.glassTiles[Math.floor(Math.random() * this.glassTiles.length)];
-      randomTile.tile.breaking = true;
-      randomTile.tile.break();
-    } else {
-      if (this.glassTilesNotBreaking.length >= 1) {
-        var randomTile =
-          this.glassTilesNotBreaking[
-            Math.floor(Math.random() * this.glassTilesNotBreaking.length)
-          ];
-        randomTile.tile.breaking = true;
-        randomTile.tile.break();
-      }
-    }
-  }
-
   getTileLandedOn(position) {
     const { tile } = this.glassTiles.find(
       (tile) =>
         tile.tile.position.x === position.x &&
         tile.tile.position.y === position.y
     );
-    return tile;
+    if (tile) {
+      return tile;
+    } else {
+      return null;
+    }
   }
 
   chooseTilesToBreak() {
@@ -126,26 +112,26 @@ export default class GlassGame {
   displayStart(timer) {
     switch (timer) {
       case 0:
-        this.startMessage = '3';
+        this.startMessage = "3";
         break;
       case 1:
-        this.startMessage = '3';
+        this.startMessage = "3";
         playSound(SOUNDS.BLIP);
         break;
       case 2:
-        this.startMessage = '2';
+        this.startMessage = "2";
         playSound(SOUNDS.BLIP);
         break;
       case 3:
-        this.startMessage = '1';
+        this.startMessage = "1";
         playSound(SOUNDS.BLIP);
         break;
       case 4:
-        this.startMessage = 'GO!';
+        this.startMessage = "GO!";
         playSound(SOUNDS.BLOOP);
         break;
       case 5:
-        this.startMessage = '';
+        this.startMessage = "";
         this.timer = 0;
         this.levelState = LEVEL_STATE.RUNNING;
         break;
@@ -159,14 +145,6 @@ export default class GlassGame {
       case LEVEL_STATE.RUNNING:
         break;
     }
-    //FOR RANDOM TILE BREAKS
-    // this.glassTilesNotBreaking = this.glassTiles.filter(
-    //   (object) => !object.tile.breaking
-    // );
-
-    // this.glassTilesBreaking = this.glassTiles.filter(
-    //   (object) => object.tile.breaking
-    // );
 
     //TEST CODE FOR JUMPING MECHANIC
     this.glassTiles.forEach((object) => object.tile.update(deltaTime));
@@ -184,15 +162,15 @@ export default class GlassGame {
   draw(ctx) {
     ctx.drawImage(this.backGroundImage, 300, 50, 600, 600);
     if (this.levelState === LEVEL_STATE.PAUSED) {
-      ctx.font = '40px luckiest_guyregular';
-      ctx.fillStyle = 'white';
-      ctx.textAlign = 'center';
+      ctx.font = "40px luckiest_guyregular";
+      ctx.fillStyle = "white";
+      ctx.textAlign = "center";
 
       ctx.fillText(this.startMessage, 600, 45);
     }
-    ctx.font = '30px luckiest_guyregular';
-    ctx.fillStyle = 'black';
-    ctx.fillText('ALTERNATE CAPS TO AVOID SPAM FILTER', 600, 685);
+    ctx.font = "30px luckiest_guyregular";
+    ctx.fillStyle = "black";
+    ctx.fillText("ALTERNATE CAPS TO AVOID SPAM FILTER", 600, 685);
     this.glassTiles.forEach((object) => object.tile.draw(ctx));
   }
 }

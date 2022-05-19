@@ -1,14 +1,14 @@
 export const DEBUG = false;
 
 export const debugPlayerNames = [
-  'deadlee15',
-  'wzdew',
-  'chaosshield',
-  'mindlessness',
-  'ceremor',
-  'meet_the_seed',
-  'chris',
-  'matt',
+  "meet_the_seed",
+  "deadlee15",
+  "wzdew",
+  "chaosshield",
+  "mindlessness",
+  "ceremor",
+  "chris",
+  "matt",
 ];
 
 export const startDebugGame = (game) => {

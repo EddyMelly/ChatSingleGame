@@ -1,14 +1,20 @@
-import TwitchApi from './TwitchApi.js';
-import JoiningScreen from './JoiningScreen.js';
-import InputHandler from './InputHandler.js';
-import GlassGame from './GlassGame.js';
-import ContestantPanels from './ContestantPanels.js';
-import VictoryScreen from './VictoryScreen.js';
-import { playSound } from './PlaySound.js';
-import { restart } from './index.js';
-import { GAMESTATE, COLOUR, SOUNDS, CUSTOMSTRIPS } from './SharedConstants.js';
-import { getEmptyPlayerTeams } from './GameUtils.js';
-import { DEBUG, startDebugGame } from './Debug.js';
+import TwitchApi from "./TwitchApi.js";
+import JoiningScreen from "./JoiningScreen.js";
+import InputHandler from "./InputHandler.js";
+import GlassGame from "./GlassGame.js";
+import ContestantPanels from "./ContestantPanels.js";
+import VictoryScreen from "./VictoryScreen.js";
+import { playSound } from "./PlaySound.js";
+import { restart } from "./index.js";
+import {
+  GAMESTATE,
+  COLOUR,
+  SOUNDS,
+  CUSTOMSTRIPS,
+  CUSTOMWINSOUNDS,
+} from "./SharedConstants.js";
+import { getEmptyPlayerTeams } from "./GameUtils.js";
+import { DEBUG, startDebugGame } from "./Debug.js";
 
 export const db = firebase.firestore();
 
@@ -38,8 +44,8 @@ export default class Game {
   }
 
   getLeaderboard() {
-    db.collection('winners')
-      .orderBy('winsTotal', 'desc')
+    db.collection("winners")
+      .orderBy("winsTotal", "desc")
       .limit(5)
       .get()
       .then((snapshot) => {
@@ -59,8 +65,8 @@ export default class Game {
       });
   }
   getLatestWinners() {
-    db.collection('winners')
-      .orderBy('lastWinTimeStamp', 'desc')
+    db.collection("winners")
+      .orderBy("lastWinTimeStamp", "desc")
       .limit(5)
       .get()
       .then((snapshot) => {
@@ -85,15 +91,15 @@ export default class Game {
     } else {
       this.currentGameState = GAMESTATE.JOINING;
       this.gameObjects = [this.JoiningScreen];
-      this.TwitchApi = new TwitchApi('ceremor', this);
+      this.TwitchApi = new TwitchApi("ceremor", this);
       this.TwitchApi.connectTwitchChat();
     }
   }
 
   startGlassGame() {
     this.activePlayers.forEach((element) => {
-      if(CUSTOMSTRIPS[element.user]){
-        element.player.changeAnimationStrip(CUSTOMSTRIPS[element.user])
+      if (CUSTOMSTRIPS[element.user]) {
+        element.player.changeAnimationStrip(CUSTOMSTRIPS[element.user]);
       }
       this.extractedPlayers.push(element.player);
     });
@@ -142,20 +148,20 @@ export default class Game {
 
   draw(ctx) {
     this.gameObjects.forEach((object) => object.draw(ctx));
-    ctx.font = '12px Monospace';
-    ctx.fillStyle = 'white';
-    ctx.textAlign = 'left';
+    ctx.font = "12px Monospace";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "left";
   }
 
   displayMessage(ctx, rgbValue, message) {
     ctx.rect(200, 100, this.gameWidth / 2, this.gameHeight / 2);
     ctx.fillStyle = rgbValue;
     ctx.fill();
-    ctx.font = '35px Monospace';
-    ctx.fillStyle = 'white';
-    ctx.textAlign = 'center';
+    ctx.font = "35px Monospace";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
     ctx.fillText(message.main, this.gameWidth / 2, this.gameHeight / 2);
-    ctx.font = '18px Monospace';
+    ctx.font = "18px Monospace";
     ctx.fillText(
       message.subtitle,
       this.gameWidth / 2,
@@ -180,10 +186,14 @@ export default class Game {
         winnerUserName
       );
     } else {
-      this.victoryScreen = new VictoryScreen(this, 'no', winnerUserName);
+      this.victoryScreen = new VictoryScreen(this, "no", winnerUserName);
     }
     this.currentGameState = GAMESTATE.VICTORY;
-    playSound(SOUNDS.VICTORY);
+    if (CUSTOMWINSOUNDS[winnerUserName]) {
+      playSound(CUSTOMWINSOUNDS[winnerUserName]);
+    } else {
+      playSound(SOUNDS.VICTORY);
+    }
     this.restartStatus = true;
     setTimeout(function () {
       restart();

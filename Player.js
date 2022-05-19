@@ -1,12 +1,12 @@
-import Animation from './Animation.js';
-import { pushingDetection } from './CollisionDetection.js';
+import Animation from "./Animation.js";
+import { pushingDetection } from "./CollisionDetection.js";
 import {
   DIRECTIONS,
   SOUNDS,
   retrievePlayerInformation,
   PLAYER_STATE,
-} from './SharedConstants.js';
-import { playSound } from './PlaySound.js';
+} from "./SharedConstants.js";
+import { playSound } from "./PlaySound.js";
 
 const SPRITE_SIZE = 50;
 
@@ -22,6 +22,8 @@ export default class Player {
     this.movementBuffer = [];
     this.campingTimeout = 35;
     this.ticker = 0;
+    this.jumpLimit = 5;
+    this.crackSound = document.getElementById("glassCrack");
 
     const { position, animationStrip, jumpSound } = retrievePlayerInformation(
       game,
@@ -56,14 +58,15 @@ export default class Player {
       frameToReach: 20,
       currentFrame: 0,
     };
-    this.campingTimeout = 40;
+    this.campingTimeout = 35;
   }
 
   callEverySecond() {
     this.campingTimeout--;
     if (this.campingTimeout === 0) {
-      this.game.contestantPanels.changeInstruction('Camping', this.colour);
-      this.moveJumpBuffer();
+      this.game.contestantPanels.changeInstruction("Camping", this.colour);
+      playSound(this.crackSound);
+      this.landFromJumping();
     }
   }
 
@@ -187,12 +190,21 @@ export default class Player {
 
   // EXPERIMENTAL JUMP FEATURE
   moveJump() {
-    if (this.canMove && this.playerState == PLAYER_STATE.ALIVE) {
+    if (
+      this.canMove &&
+      this.playerState == PLAYER_STATE.ALIVE &&
+      this.jumpLimit > 0
+    ) {
       this.canMove = false;
       this.movement.direction = DIRECTIONS.JUMP;
       this.movement.activated = true;
       playSound(this.jumpSound);
       this.animation.change(this.sprite_sheet.frame_sets[1], 5);
+      this.jumpLimit = this.jumpLimit - 1;
+      this.game.contestantPanels.changeJumpsRemaining(
+        this.jumpLimit,
+        this.colour
+      );
       this.landFromJumping();
     }
   }

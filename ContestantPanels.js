@@ -1,66 +1,66 @@
-import { COLOUR, truncateString } from './SharedConstants.js';
+import { COLOUR, truncateString } from "./SharedConstants.js";
 
 export default class ContestantPanels {
   constructor(game) {
     this.game = game;
-    this.crownImage = document.getElementById('crownImage');
+    this.crownImage = document.getElementById("crownImage");
 
     this.teamInformation = [
       {
         colour: COLOUR.ORANGE,
         teamNamePositions: { x: 150, y: 30 },
-        instructionPosition: { x: 150, y: 140 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.TEAL,
         teamNamePositions: { x: 150, y: 555 },
-        instructionPosition: { x: 150, y: 665 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.PURPLE,
         teamNamePositions: { x: 1050, y: 555 },
-        instructionPosition: { x: 1050, y: 665 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.PINK,
         teamNamePositions: { x: 1050, y: 30 },
-        instructionPosition: { x: 1050, y: 140 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.RED,
         teamNamePositions: { x: 150, y: 205 },
-        instructionPosition: { x: 150, y: 315 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.BLUE,
         teamNamePositions: { x: 1050, y: 205 },
-        instructionPosition: { x: 1050, y: 315 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.GREEN,
         teamNamePositions: { x: 150, y: 380 },
-        instructionPosition: { x: 150, y: 490 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
       {
         colour: COLOUR.YELLOW,
         teamNamePositions: { x: 1050, y: 380 },
-        instructionPosition: { x: 1050, y: 490 },
-        instruction: '',
-        userName: '',
+        instruction: "",
+        userName: "",
+        jumpsRemaining: 5,
       },
     ];
   }
@@ -76,6 +76,15 @@ export default class ContestantPanels {
     }
   }
 
+  changeJumpsRemaining(limit, team) {
+    var tempTeam = this.teamInformation.find(
+      (object) => object.colour === team
+    );
+    if (tempTeam) {
+      tempTeam.jumpsRemaining = limit;
+    }
+  }
+
   giveUserName(userName, team) {
     var tempTeam = this.teamInformation.find(
       (object) => object.colour === team
@@ -87,23 +96,33 @@ export default class ContestantPanels {
   }
 
   drawInstruction(ctx, instruction, instructionPosition) {
-    ctx.font = '30px luckiest_guyregular';
-    ctx.fillStyle = 'black';
-    ctx.textAlign = 'center';
+    ctx.font = "30px luckiest_guyregular";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
     ctx.fillText(instruction, instructionPosition.x, instructionPosition.y);
+  }
+
+  drawJumpLimit(ctx, limit, limitPosition) {
+    ctx.font = "25px luckiest_guyregular";
+    ctx.fillStyle = "black";
+    ctx.textAlign = "center";
+    ctx.fillText(`Jumps: ${limit} `, limitPosition.x, limitPosition.y);
   }
 
   draw(ctx) {
     this.teamInformation.forEach((element) => {
-      this.drawInstruction(
-        ctx,
-        element.instruction,
-        element.instructionPosition
-      );
+      this.drawInstruction(ctx, element.instruction, {
+        x: element.teamNamePositions.x,
+        y: element.teamNamePositions.y + 100,
+      });
+      this.drawJumpLimit(ctx, element.jumpsRemaining, {
+        x: element.teamNamePositions.x,
+        y: element.teamNamePositions.y + 130,
+      });
       var yposition = 50;
-      ctx.font = '20px galindoregular';
-      ctx.fillStyle = 'black';
-      ctx.textAlign = 'center';
+      ctx.font = "20px galindoregular";
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
       ctx.fillText(
         element.userName,
         element.teamNamePositions.x,
