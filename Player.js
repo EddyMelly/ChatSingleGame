@@ -22,7 +22,7 @@ export default class Player {
     this.movementBuffer = [];
     this.campingTimeout = 35;
     this.ticker = 0;
-    this.jumpLimit = 5;
+    this.jumpLimit = 7;
     this.crackSound = document.getElementById("glassCrack");
 
     const { position, animationStrip, jumpSound } = retrievePlayerInformation(
