@@ -1,4 +1,4 @@
-import { COLOUR, truncateString } from "./SharedConstants.js";
+import { COLOUR, truncateString, startingJumps } from "./SharedConstants.js";
 
 export default class ContestantPanels {
   constructor(game) {
@@ -11,56 +11,56 @@ export default class ContestantPanels {
         teamNamePositions: { x: 150, y: 30 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.TEAL,
         teamNamePositions: { x: 150, y: 555 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.PURPLE,
         teamNamePositions: { x: 1050, y: 555 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.PINK,
         teamNamePositions: { x: 1050, y: 30 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.RED,
         teamNamePositions: { x: 150, y: 205 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.BLUE,
         teamNamePositions: { x: 1050, y: 205 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.GREEN,
         teamNamePositions: { x: 150, y: 380 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
       {
         colour: COLOUR.YELLOW,
         teamNamePositions: { x: 1050, y: 380 },
         instruction: "",
         userName: "",
-        jumpsRemaining: 7,
+        jumpsRemaining: startingJumps,
       },
     ];
   }

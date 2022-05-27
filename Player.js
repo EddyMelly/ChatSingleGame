@@ -5,6 +5,7 @@ import {
   SOUNDS,
   retrievePlayerInformation,
   PLAYER_STATE,
+  startingJumps,
 } from "./SharedConstants.js";
 import { playSound } from "./PlaySound.js";
 
@@ -22,7 +23,7 @@ export default class Player {
     this.movementBuffer = [];
     this.campingTimeout = 35;
     this.ticker = 0;
-    this.jumpLimit = 7;
+    this.jumpLimit = startingJumps;
     this.crackSound = document.getElementById("glassCrack");
 
     const { position, animationStrip, jumpSound } = retrievePlayerInformation(
