@@ -65,9 +65,18 @@ export default class Player {
   callEverySecond() {
     this.campingTimeout--;
     if (this.campingTimeout === 0) {
-      this.game.contestantPanels.changeInstruction("Camping", this.colour);
-      playSound(this.crackSound);
-      this.landFromJumping();
+      this.breakFromCamping();
+    }
+  }
+
+  breakFromCamping() {
+    if (this.canMove && this.playerState === PLAYER_STATE.ALIVE) {
+      const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
+      if (landedOnTile !== null) {
+        this.game.contestantPanels.changeInstruction("Camping", this.colour);
+        playSound(this.crackSound);
+        landedOnTile.break();
+      }
     }
   }
 
@@ -220,13 +229,6 @@ export default class Player {
       this.animation.change(this.sprite_sheet.frame_sets[1], 5);
     }
   }
-
-  // land() {
-  //   if (this.game.glassGame) {
-  //     const landedOnTile = this.game.glassGame.getTileLandedOn(this.position);
-  //     // landedOnTile && landedOnTile.moveToTile(this);
-  //   }
-  // }
 
   landFromJumping() {
     if (this.game.glassGame) {

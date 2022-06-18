@@ -57,13 +57,13 @@ export default class GlassGame {
   }
 
   getTileLandedOn(position) {
-    const { tile } = this.glassTiles.find(
+    const tile = this.glassTiles.find(
       (tile) =>
         tile.tile.position.x === position.x &&
         tile.tile.position.y === position.y
     );
     if (tile) {
-      return tile;
+      return tile.tile;
     } else {
       return null;
     }
